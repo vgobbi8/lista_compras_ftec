@@ -1,8 +1,13 @@
 package br.com.aula.listadecompras.domain.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import br.com.aula.listadecompras.domain.enums.StatusProduto;
 
-public class ListaCompraItemModel {
+public class ListaCompraItemModel implements Parcelable {
     private int id;
     private int idListaCompra;
     private String nome;
@@ -26,6 +31,30 @@ public class ListaCompraItemModel {
         this.comprado = comprado;
         this.idCategoria = idCategoria;
     }
+
+    protected ListaCompraItemModel(Parcel in) {
+        id = in.readInt();
+        idListaCompra = in.readInt();
+        nome = in.readString();
+        quantidade = in.readInt();
+        valor = in.readDouble();
+        comprado = StatusProduto.values()[in.readInt()];
+        idCategoria = in.readInt();
+        categoria = in.readParcelable(CategoriaModel.class.getClassLoader());
+
+    }
+
+    public static final Creator<ListaCompraItemModel> CREATOR = new Creator<ListaCompraItemModel>() {
+        @Override
+        public ListaCompraItemModel createFromParcel(Parcel in) {
+            return new ListaCompraItemModel(in);
+        }
+
+        @Override
+        public ListaCompraItemModel[] newArray(int size) {
+            return new ListaCompraItemModel[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -89,5 +118,23 @@ public class ListaCompraItemModel {
 
     public void setCategoria(CategoriaModel categoria) {
         this.categoria = categoria;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeInt(this.idListaCompra);
+        dest.writeString(this.nome);
+        dest.writeInt(this.quantidade);
+        dest.writeDouble(this.valor);
+        dest.writeInt(this.comprado == null ? -1 : this.comprado.ordinal());
+        dest.writeInt(this.idCategoria);
+        dest.writeParcelable(this.categoria, flags);
+
     }
 }
