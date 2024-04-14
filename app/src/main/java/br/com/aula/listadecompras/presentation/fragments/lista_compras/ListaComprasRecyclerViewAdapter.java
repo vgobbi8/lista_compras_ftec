@@ -34,7 +34,7 @@ public class ListaComprasRecyclerViewAdapter extends RecyclerView.Adapter<ListaC
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
+       // holder.mIdView.setText(String.valueOf(mValues.get(position).getId()));
         holder.mContentView.setText(mValues.get(position).getNome());
     }
 
@@ -44,13 +44,13 @@ public class ListaComprasRecyclerViewAdapter extends RecyclerView.Adapter<ListaC
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView mIdView;
+      //  public final TextView mIdView;
         public final TextView mContentView;
         public ListaComprasModel mItem;
 
         public ViewHolder(FragmentListaCompraItemBinding binding, final OnListaCompraItemClickListener listener) {
             super(binding.getRoot());
-            mIdView = binding.listaId;
+          //  mIdView = binding.listaId;
             mContentView = binding.listaNome;
 
             // Configura o listener de clique no item

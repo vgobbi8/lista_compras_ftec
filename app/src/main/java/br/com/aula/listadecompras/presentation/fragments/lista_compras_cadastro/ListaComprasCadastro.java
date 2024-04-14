@@ -59,11 +59,11 @@ public class ListaComprasCadastro extends Fragment {
             if (listaEdicao != null) {
                 mViewModel.id = listaEdicao.getId();
                 mViewModel.nome = listaEdicao.getNome();
-Aj
+
                 binding.editTextNomeLista.setText(mViewModel.nome);
             }
         }
-        binding.descPagina.setText(listaEdicao != null ? "Edição " : "Inclusão " + "Lista de Compras");
+        binding.descPagina.setText((listaEdicao != null ? "Edição " : "Inclusão ") + "Lista de Compras");
         binding.buttonSalvarLista.setOnClickListener(v -> {
             mViewModel.nome = (binding.editTextNomeLista.getText().toString());
             if (listaEdicao != null) {

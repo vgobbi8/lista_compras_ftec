@@ -90,7 +90,7 @@ public class ItemCompraCadastroFragment extends Fragment {
                 binding.spinnerCategoria.setSelection(mViewModel.categorias.indexOf(mViewModel.categorias.stream().filter(c -> c.getId() == mViewModel.idCategoria).findFirst().get()));
             }
         }
-        binding.descPagina.setText(itemEdicao != null ? "Edição " : "Inclusão " + "Item da lista " + listaCompra.getNome());
+        binding.descPagina.setText((itemEdicao != null ? "Edição " : "Inclusão ") + "Item da lista " + listaCompra.getNome());
         mViewModel.idListaCompra = listaCompra.getId();
 
         binding.buttonSalvarLista.setOnClickListener(v -> {
