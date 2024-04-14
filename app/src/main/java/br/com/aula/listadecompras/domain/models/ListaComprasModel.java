@@ -54,7 +54,6 @@ public class ListaComprasModel implements Parcelable  {
 
     public ContentValues toContentValues() {
         ContentValues values = new ContentValues();
-        values.put("id", id);
         values.put("nome", nome);
         return values;
     }

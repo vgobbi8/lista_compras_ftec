@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import java.util.LinkedList;
 import java.util.Objects;
@@ -41,10 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 // Handle the back button event
-                if (binding.bottomNavigation.getSelectedItemId() != R.id.item_nav_home) {
-                    binding.bottomNavigation.setSelectedItemId(R.id.item_nav_home);
-                    return;
-                }
+
                 if (!homeNavigationStack.isEmpty()) {
                     popFragment();
                 } else {
@@ -57,17 +55,17 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     private void configure() {
-        binding.bottomNavigation.setOnItemSelectedListener(item -> {
-//            switch (item.getItemId()) {
-//                case R.id.item_nav_home:
-//                    binding.textView.setText("Home");
-//                    break;
-//                case R.id.item_nav_about:
-//                    binding.textView.setText("Dashboard");
-//                    break;
-//            }
-            return true;
-        });
+//        binding.bottomNavigation.setOnItemSelectedListener(item -> {
+////            switch (item.getItemId()) {
+////                case R.id.item_nav_home:
+////                    binding.textView.setText("Home");
+////                    break;
+////                case R.id.item_nav_about:
+////                    binding.textView.setText("Dashboard");
+////                    break;
+////            }
+//            return true;
+//        });
     }
 
 
@@ -76,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void pushFragment(Fragment fragment) {
         homeNavigationStack.push(fragment);
-        setBreadcrumb(fragment);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.fragment_container, fragment, null)
@@ -93,19 +90,11 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         Fragment fragment = homeNavigationStack.peek();
-        setBreadcrumb(fragment);
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
                 .replace(R.id.fragment_container, fragment, null)
                 .commit();
     }
 
-    private void setBreadcrumb(Fragment fragment) {
-        if (fragment instanceof HomeFragment) {
-            binding.breadcrumbTextView.setText("Home");
-        } else if (fragment instanceof ListagemCategoriasFragment) {
-            binding.breadcrumbTextView.setText("Categorias");
-        }
-    }
 
 }

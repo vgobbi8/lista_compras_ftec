@@ -7,7 +7,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/item_number"
+        android:id="@+id/lista_item_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Teste ID"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/content"
+        android:id="@+id/lista_item_nome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nome"
@@ -28,8 +28,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
-        app:layout_constraintStart_toEndOf="@+id/item_number"
+        app:layout_constraintStart_toEndOf="@+id/lista_item_id"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/lista_item_obs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Observação"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deletar_button"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/lista_item_nome"
+        app:layout_constraintTop_toBottomOf="@+id/lista_item_nome"
+        app:layout_constraintVertical_bias="0.01999998" />
 
     <Button
         android:id="@+id/deletar_button"
@@ -45,7 +59,5 @@
         app:layout_constraintHorizontal_bias="0.96"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

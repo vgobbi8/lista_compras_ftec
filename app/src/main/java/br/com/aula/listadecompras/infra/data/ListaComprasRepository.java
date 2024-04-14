@@ -8,21 +8,9 @@ import java.util.ArrayList;
 
 import br.com.aula.listadecompras.domain.models.ListaComprasModel;
 
-interface IListaComprasRepository {
-    void inserir(ListaComprasModel listaComprasModel);
-
-    void alterar(ListaComprasModel listaComprasModel);
-
-    void excluir(int id);
-
-    ArrayList<ListaComprasModel> retornarTodos();
-
-    ListaComprasModel retornarPorId(int id);
-}
-
 public class ListaComprasRepository extends BaseRepository implements IListaComprasRepository {
 
-    private static final String TABLE_NAME = "COM001_ListaCompras";
+    private static final String TABLE_NAME = "COM001_ListasDeCompras";
 
     public ListaComprasRepository(SQLiteDatabase database) {
         super(database);
@@ -43,7 +31,9 @@ public class ListaComprasRepository extends BaseRepository implements IListaComp
 
     @Override
     public void excluir(int id) {
+        database.delete(ListaCompraItensRepository.TABLE_NAME, "idListaCompra = ?", new String[]{String.valueOf(id)});
         database.delete(TABLE_NAME, "id = ?", new String[]{String.valueOf(id)});
+
     }
 
     @Override

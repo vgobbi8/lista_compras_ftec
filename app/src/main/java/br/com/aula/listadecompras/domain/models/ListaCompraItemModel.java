@@ -1,19 +1,18 @@
 package br.com.aula.listadecompras.domain.models;
 
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import br.com.aula.listadecompras.domain.enums.StatusProduto;
 
 public class ListaCompraItemModel implements Parcelable {
     private int id;
     private int idListaCompra;
     private String nome;
     private int quantidade;
-    private double valor;
-    private StatusProduto comprado;
+    private int comprado;
     private int idCategoria;
 
     private CategoriaModel categoria;
@@ -22,12 +21,11 @@ public class ListaCompraItemModel implements Parcelable {
 
     }
 
-    public ListaCompraItemModel(int id, int idListaCompra, String nome, int quantidade, double valor, StatusProduto comprado, int idCategoria) {
+    public ListaCompraItemModel(int id, int idListaCompra, String nome, int quantidade, int comprado, int idCategoria) {
         this.id = id;
         this.idListaCompra = idListaCompra;
         this.nome = nome;
         this.quantidade = quantidade;
-        this.valor = valor;
         this.comprado = comprado;
         this.idCategoria = idCategoria;
     }
@@ -37,8 +35,7 @@ public class ListaCompraItemModel implements Parcelable {
         idListaCompra = in.readInt();
         nome = in.readString();
         quantidade = in.readInt();
-        valor = in.readDouble();
-        comprado = StatusProduto.values()[in.readInt()];
+        comprado = in.readInt();
         idCategoria = in.readInt();
         categoria = in.readParcelable(CategoriaModel.class.getClassLoader());
 
@@ -88,19 +85,11 @@ public class ListaCompraItemModel implements Parcelable {
         this.quantidade = quantidade;
     }
 
-    public double getValor() {
-        return valor;
-    }
-
-    public void setValor(double valor) {
-        this.valor = valor;
-    }
-
-    public StatusProduto getComprado() {
+    public int getComprado() {
         return comprado;
     }
 
-    public void setComprado(StatusProduto comprado) {
+    public void setComprado(int comprado) {
         this.comprado = comprado;
     }
 
@@ -131,10 +120,25 @@ public class ListaCompraItemModel implements Parcelable {
         dest.writeInt(this.idListaCompra);
         dest.writeString(this.nome);
         dest.writeInt(this.quantidade);
-        dest.writeDouble(this.valor);
-        dest.writeInt(this.comprado == null ? -1 : this.comprado.ordinal());
+        dest.writeInt(this.comprado);
         dest.writeInt(this.idCategoria);
         dest.writeParcelable(this.categoria, flags);
 
     }
+
+    public String getObservacao() {
+        return "Comprado: " + (comprado == 1 ? "Sim" : "Não") + "\nQtde: " + quantidade + "\nCateg.: " + categoria.getNome();
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put("idListaCompra", idListaCompra);
+        values.put("nome", nome);
+        values.put("quantidade", quantidade);
+        values.put("comprado", comprado);
+        values.put("idCategoria", idCategoria);
+        return values;
+    }
+
+
 }

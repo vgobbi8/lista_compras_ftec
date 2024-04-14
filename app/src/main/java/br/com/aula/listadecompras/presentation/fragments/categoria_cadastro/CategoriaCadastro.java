@@ -57,7 +57,7 @@ public class CategoriaCadastro extends Fragment {
                 binding.setCategoria(mViewModel);
             }
         }
-
+        binding.descPagina.setText(categoriaEdicao != null ? "Editar Categoria" : "Nova Categoria");
         binding.buttonSalvarCategoria.setOnClickListener(v -> {
             mViewModel.nome.setValue(binding.editTextNomeCategoria.getText().toString());
             if (categoriaEdicao != null) {

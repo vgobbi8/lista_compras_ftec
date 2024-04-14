@@ -24,6 +24,13 @@ public class DIContainer {
         return new CategoriasRepository(sqliteHelper.getWritableDatabase());
     }
 
+    public IListaComprasRepository getListaComprasRepository() {
+        return new ListaComprasRepository(sqliteHelper.getWritableDatabase());
+    }
+
+    public IListaCompraItensRepository getListaCompraItensRepository() {
+        return new ListaCompraItensRepository(sqliteHelper.getWritableDatabase());
+    }
 
 
 }

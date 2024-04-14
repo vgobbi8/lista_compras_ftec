@@ -14,7 +14,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
     private  static String CREATE_COM001 = "CREATE TABLE COM001_ListasDeCompras (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT)";
 
-    private  static String CREATE_COM002 = "CREATE TABLE COM002_ListasDeComprasItens (id INTEGER PRIMARY KEY AUTOINCREMENT, idListaCompra INTEGER, idCategoria INTEGER, nome TEXT, quantidade INTEGER, valor REAL, comprado INTEGER)";
+    private  static String CREATE_COM002 = "CREATE TABLE COM002_ListasDeComprasItens (id INTEGER PRIMARY KEY AUTOINCREMENT, idListaCompra INTEGER, idCategoria INTEGER, nome TEXT, quantidade INTEGER, comprado INTEGER)";
 
     private static final String DATABASE_NAME = "ListaDeCompras.db";
     private static final int DATABASE_VERSION = 1;

@@ -13,14 +13,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import br.com.aula.listadecompras.MyApplication;
 import br.com.aula.listadecompras.R;
 import br.com.aula.listadecompras.databinding.FragmentListagemCategoriasBinding;
 import br.com.aula.listadecompras.domain.models.CategoriaModel;
+import br.com.aula.listadecompras.domain.models.ListaCompraItemModel;
 import br.com.aula.listadecompras.infra.data.CategoriasRepository;
 import br.com.aula.listadecompras.infra.data.ICategoriasRepository;
+import br.com.aula.listadecompras.infra.data.IListaCompraItensRepository;
 import br.com.aula.listadecompras.infra.data.SqliteHelper;
 import br.com.aula.listadecompras.presentation.MainActivity;
 import br.com.aula.listadecompras.presentation.fragments.categoria_cadastro.CategoriaCadastro;
@@ -62,7 +66,7 @@ public class ListagemCategoriasFragment extends Fragment implements OnCategoriaI
                         DividerItemDecoration.VERTICAL)
         );
         loadCategorias();
-
+        binding.descPagina.setText("Categorias");
         binding.fabAddCategoria.setOnClickListener(view -> {
             MainActivity activity = (MainActivity) getActivity();
             activity.pushFragment(CategoriaCadastro.newInstance(null));
@@ -88,9 +92,17 @@ public class ListagemCategoriasFragment extends Fragment implements OnCategoriaI
 
     @Override
     public void onDeleteClick(CategoriaModel categoria) {
-        SqliteHelper helper = new SqliteHelper(getContext());
-        SQLiteDatabase db = helper.getReadableDatabase();
-        ICategoriasRepository categoriasRepository = new CategoriasRepository(db);
+        MyApplication myApplication = (MyApplication) getActivity().getApplication();
+
+        ICategoriasRepository categoriasRepository = myApplication.diContainer.getCategoriasRepository();
+        IListaCompraItensRepository listaCompraItensRepository = myApplication.diContainer.getListaCompraItensRepository();
+
+        ArrayList<ListaCompraItemModel> itens = listaCompraItensRepository.retornarPorCategoria(categoria.getId());
+        if (!itens.isEmpty()) {
+            Toast.makeText(myApplication, "Não é possível apagar esta categoria pois existem itens relacionados com ela!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         categoriasRepository.excluir(categoria.getId());
         loadCategorias();
     }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import br.com.aula.listadecompras.databinding.FragmentHomeBinding;
 import br.com.aula.listadecompras.presentation.MainActivity;
 import br.com.aula.listadecompras.presentation.fragments.categorias.ListagemCategoriasFragment;
+import br.com.aula.listadecompras.presentation.fragments.lista_compras.ListaComprasFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +58,10 @@ public class HomeFragment extends Fragment {
         binding.categoriasButton.setOnClickListener(v -> {
             MainActivity activity = (MainActivity) getActivity();
             activity.pushFragment(ListagemCategoriasFragment.newInstance());
+        });
+        binding.comprasButton.setOnClickListener(v -> {
+            MainActivity activity = (MainActivity) getActivity();
+            activity.pushFragment(ListaComprasFragment.newInstance());
         });
 
         //configure();
