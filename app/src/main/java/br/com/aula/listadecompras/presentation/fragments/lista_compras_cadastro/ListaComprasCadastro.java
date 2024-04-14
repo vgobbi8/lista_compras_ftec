@@ -59,7 +59,7 @@ public class ListaComprasCadastro extends Fragment {
             if (listaEdicao != null) {
                 mViewModel.id = listaEdicao.getId();
                 mViewModel.nome = listaEdicao.getNome();
-
+Aj
                 binding.editTextNomeLista.setText(mViewModel.nome);
             }
         }

@@ -75,7 +75,7 @@ public class ItemCompraCadastroFragment extends Fragment {
         CategoriaAdapter adapter = new CategoriaAdapter(getContext(), mViewModel.categorias);
         binding.spinnerCategoria.setAdapter(adapter);
 
-        binding.descPagina.setText(itemEdicao != null ? "Edição " : "Inclusão " + "Item da lista " + listaCompra.getNome());
+
         if (getArguments() != null) {
             itemEdicao = getArguments().getParcelable("item");
             if (itemEdicao != null) {
@@ -90,6 +90,7 @@ public class ItemCompraCadastroFragment extends Fragment {
                 binding.spinnerCategoria.setSelection(mViewModel.categorias.indexOf(mViewModel.categorias.stream().filter(c -> c.getId() == mViewModel.idCategoria).findFirst().get()));
             }
         }
+        binding.descPagina.setText(itemEdicao != null ? "Edição " : "Inclusão " + "Item da lista " + listaCompra.getNome());
         mViewModel.idListaCompra = listaCompra.getId();
 
         binding.buttonSalvarLista.setOnClickListener(v -> {
